@@ -198,7 +198,7 @@ However, If your local area network (LAN) router is already acting as a DHCP ser
 
 **Setting up a network on other LAN-only Raspberry Pi:**
 
-1. Set the default gateway to point to gateway Raspberry Pi:
+Set the default gateway to point to gateway Raspberry Pi:
 
 If the LAN interface IP on gateway Raspberry Pi is 192.168.x.y, set the default gateway and DNS servers on other LAN-only Raspberry Pi:
 ```bash
