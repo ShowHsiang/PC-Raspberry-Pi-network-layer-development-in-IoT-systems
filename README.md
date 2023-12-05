@@ -94,10 +94,9 @@ iwconfig
 **Setting the Raspberry Pi's static IP address**
 
 1. Edit the dhcpcd configuration file:
-···bash
+```bash
 sudo nano /etc/dhcpcd.conf
 ```
-
 Assuming the expansion antenna wlan1 is used to connect to the LAN
 ```bash
 interface wlan1
