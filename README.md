@@ -41,7 +41,10 @@ If the Raspberry Pi is configured as a gateway rather than a wireless access poi
 1. Edit the wpa_supplicant configuration file
 ```bash
 sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
+```
+
 Add the configuration for both networks, similarly:
+```bash
 network={
     ssid="Your_LAN_SSID"
     psk="Your_LAN_Password"
