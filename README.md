@@ -32,7 +32,9 @@ Then you can check parameters including:
 
 Sometimes the manufacturer supplied router, signal expander or mesh is not customisable enough. So if you don't want to set up a manufacturer-supplied network device as a gateway in your IoT system, you can choose to develop a Raspberry Pi. 
 
-You can connect both Ethernet and WiFi to the Raspberry Pi, or if you have a USB expansion antenna that fits the Raspberry Pi you can wirelessly connect the Raspberry Pi to your LAN and WiFi at the same time, and then your Raspberry Pi can act as a gateway in the system, managing the IoT network and forwarding the traffic from the WiFi to the LAN (more like a forwarding and control centre in the network than an access point).
+You can connect both Ethernet and WiFi to the Raspberry Pi, or if you have a USB expansion antenna that fits the Raspberry Pi you can wirelessly connect the Raspberry Pi to your LAN and WiFi at the same time, and then your Raspberry Pi can act as a gateway in the system.
+
+If the Raspberry Pi is configured as a gateway rather than a wireless access point, then your other devices (e.g., smart home devices, computers, etc.) should connect directly to your local area network (LAN) router. The Raspberry Pi serves primarily as a network traffic forwarder and Network Address Translation (NAT) in this configuration, rather than providing a direct wireless network connection.
 
 **Configuring the wireless network**
 
@@ -187,6 +189,16 @@ sudo systemctl restart dnsmasq
 
 However, If your local area network (LAN) router is already acting as a DHCP server, there is usually no need for additional DHCP server configuration on the Raspberry Pi. The router will be responsible for assigning IP addresses, gateways and DNS information to the devices on the LAN. In this case, the Raspberry Pi acts as a gateway primarily responsible for network traffic forwarding and NAT (Network Address Translation).
 
+**Setting up a network on other LAN-only Raspberry Pi:**
+
+1. Set the default gateway to point to gateway Raspberry Pi:
+
+If the LAN interface IP on gateway Raspberry Pi is 192.168.x.y, set the default gateway and DNS servers on other LAN-only Raspberry Pi:
+```bash
+sudo ip route add default via 192.168.x.y
+echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
+```
+
 **Raspberry Pi Internet Connection Check**
 
 ```bash
@@ -196,5 +208,3 @@ ping -I wlan0 -c 4 www.google.com
 # Checking the dnsmasq Configuration
 sudo nano /etc/dnsmasq.conf
 ```
-
-If the Raspberry Pi is configured as a gateway rather than a wireless access point, then your other devices (e.g., smart home devices, computers, etc.) should connect directly to your local area network (LAN) router. The Raspberry Pi serves primarily as a network traffic forwarder and Network Address Translation (NAT) in this configuration, rather than providing a direct wireless network connection.
