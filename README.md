@@ -1,5 +1,7 @@
 # Raspberry-Pi-network-layer-development-in-IoT-systems
+
 **Installing and updating software**
+
 Open the terminal and update the software list:
 ```bash
 sudo apt update
@@ -33,6 +35,7 @@ Sometimes the manufacturer supplied router, signal expander or mesh is not custo
 You can connect both Ethernet and WiFi to the Raspberry Pi, or if you have a USB expansion antenna that fits the Raspberry Pi you can wirelessly connect the Raspberry Pi to your LAN and WiFi at the same time, and then your Raspberry Pi can act as a gateway in the system, managing the IoT network and forwarding the traffic from the WiFi to the LAN (more like a forwarding and control centre in the network than an access point).
 
 **Configuring the wireless network**
+
 1. Edit the wpa_supplicant configuration file
 ```bash
 sudo nano /etc/wpa_supplicant/wpa_supplicant.conf
@@ -77,7 +80,9 @@ Check the status of both interfaces to ensure that they are properly connected t
 ```bash
 iwconfig
 ```
+
 **Setting the Raspberry Pi's static IP address**
+
 1. Edit the dhcpcd configuration file:
 ···bash
 sudo nano /etc/dhcpcd.conf
@@ -103,6 +108,7 @@ Increased network management complexity: Dynamic IPs can lead to increased compl
 Potential network instability: If the IP address of the gateway changes, devices within the network may temporarily lose connectivity until they obtain a new gateway address.
 
 **Enable IP Forwarding**
+
 Edit the /etc/sysctl.conf file to enable IP forwarding:
 ```bash
 sudo nano /etc/sysctl.conf
@@ -119,6 +125,7 @@ sudo sysctl -p
 ```
 
 **Configuring NAT (Network Address Translation)**
+
 Use ‘iptables’ to set up NAT rules to allow the Raspberry Pi to forward traffic. Assume that wlan0 is the interface connected to the Internet and wlan1 is the interface connected to the LAN:
 ```bash
 sudo apt install iptables
@@ -146,6 +153,7 @@ sudo iptables -L FORWARD -v -n
 ```
 
 **Setting up the Raspberry Pi as a DHCP server**
+
 Setting up your Raspberry Pi as a DHCP server means that your Raspberry Pi will be responsible for assigning network configuration information such as IP addresses, subnet masks, default gateways, and DNS servers to devices connected to it.
 
 IP address assignment: A DHCP (Dynamic Host Configuration Protocol) server automatically assigns IP addresses, usually temporary, called "leases," to devices on the network. This eliminates the need for devices to manually configure network settings and allows them to plug and play.
@@ -153,3 +161,40 @@ IP address assignment: A DHCP (Dynamic Host Configuration Protocol) server autom
 Network management is simplified: In a network without a DHCP server, you would need to manually set static IP addresses for each device, which is impractical in large networks. A DHCP server automates this process, making network management simpler.
 
 Dynamic and flexible: A DHCP server can dynamically assign and reclaim IP addresses based on devices joining and leaving, making IP address management more efficient and flexible.
+
+Install dnsmasq:
+```bash
+sudo apt-get update
+sudo apt-get install dnsmasq
+```
+Configure dnsmasq:
+```bash
+sudo nano /etc/dnsmasq.conf
+```
+Add or modify the following configuration in the file to reflect your network settings:
+```bash
+# Set the IP address range and lease period for DHCP service
+dhcp-range=192.168.x.x,192.168.x.y,24h
+# Set the IP address of the Raspberry Pi to be used as the gateway.
+dhcp-option=option:router,192.168.x.z
+# Optional: set the DNS server address
+dhcp-option=option:dns-server,192.168.x.z
+```
+where x is your network segment, 192.168.x.x and 192.168.x.y are IP address ranges (e.g. 192.168.1.50 to 192.168.1.150), and 192.168.x.z is the static IP address of the Raspberry Pi.
+```bash
+sudo systemctl restart dnsmasq
+```
+
+However, If your local area network (LAN) router is already acting as a DHCP server, there is usually no need for additional DHCP server configuration on the Raspberry Pi. The router will be responsible for assigning IP addresses, gateways and DNS information to the devices on the LAN. In this case, the Raspberry Pi acts as a gateway primarily responsible for network traffic forwarding and NAT (Network Address Translation).
+
+**Raspberry Pi Internet Connection Check**
+
+```bash
+ping -I wlan0 -c 4 8.8.8.8
+# DNS check
+ping -I wlan0 -c 4 www.google.com
+# Checking the dnsmasq Configuration
+sudo nano /etc/dnsmasq.conf
+```
+
+If the Raspberry Pi is configured as a gateway rather than a wireless access point, then your other devices (e.g., smart home devices, computers, etc.) should connect directly to your local area network (LAN) router. The Raspberry Pi serves primarily as a network traffic forwarder and Network Address Translation (NAT) in this configuration, rather than providing a direct wireless network connection.
