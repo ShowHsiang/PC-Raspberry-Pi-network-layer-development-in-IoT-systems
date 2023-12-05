@@ -1,5 +1,5 @@
 # Raspberry-Pi-network-layer-development-in-IoT-systems
-#Installing and updating software#
+##Installing and updating software##
 Open the terminal and update the software list:
 ```bash
 sudo apt update
