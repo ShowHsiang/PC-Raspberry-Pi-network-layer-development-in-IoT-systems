@@ -57,13 +57,16 @@ network={
     id_str="internet"
 }
 ```
+
 2. Assign interfaces to specific networks
+
 Edit the network interface configuration file:
 ```bash
 sudo nano /etc/network/interfaces
 ```
 
 Add or edit the following to specify the network that each wireless interface should connect to:
+
 ```bash
 allow-hotplug wlan0
 iface wlan0 inet manual
@@ -76,12 +79,14 @@ wpa-ssid Your_Internet_SSID
 ```
 
 3. Apply the new configuration and restart the network service:
+
 ```bash
 sudo systemctl daemon-reload
 sudo service networking restart
 ```
 
 Check the status of both interfaces to ensure that they are properly connected to the specified network:
+
 ```bash
 iwconfig
 ```
