@@ -216,6 +216,7 @@ ping -I wlan0 -c 4 www.google.com
 sudo nano /etc/dnsmasq.conf
 ```
 
+
 **Gateway_set.sh:** Automatically select the best gateway Pi after the Raspberry Pi is switched on.
 
 Run 
@@ -260,6 +261,7 @@ cat /tmp/script_log.txt
 ```
 to track down script runtime errors.
 
+
 **Gateway_check.sh:** A script that runs at regular intervals to compare and select the best gateway.
 
 Use the same step to make the script executable and track down script runtime errors.
@@ -279,3 +281,7 @@ Run
 grep CRON /var/log/syslog
 ```
 to view the logs of cron jobs and confirm that your scripts are executing as expected.
+
+
+**SelectBestGateway.ps1:** Script to automatically set the best gateway for laptops. [Using "Terminal (Administrator)"]
+
