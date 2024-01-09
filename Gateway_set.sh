@@ -4,7 +4,7 @@ echo "Starting script…" > /tmp/script_log.txt
 best_ping=1000
 best_gateway=""
 echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf > /dev/null
-for gateway in 192.168.28.10 192.168.28.11 192.168.28.12; do
+for gateway in 192.168.1.1 192.168.1.2 192.168.1.3; do
   ping -c 8 $gateway > /dev/null
   if [ $? -eq 0 ]; then
 result=$(ping -c 8 $gateway | tail -1| awk '{print $4}' | cut -d '/' -f 2)
