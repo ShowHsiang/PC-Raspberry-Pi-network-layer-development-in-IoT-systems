@@ -215,6 +215,7 @@ ping -I wlan0 -c 4 www.google.com
 # Checking the dnsmasq Configuration
 sudo nano /etc/dnsmasq.conf
 ```
+
 **Gateway_set.sh:** Automatically select the best gateway Pi after the Raspberry Pi is switched on.
 
 Run 
@@ -222,3 +223,59 @@ Run
 chmod +x /home/pi/Gateway_set.sh 
 ```
 to give the script execute permission.
+
+Use 
+```bash
+sudo nano /etc/systemd/system/gateway_check.service
+```
+to create a new service file.
+
+```bash
+[Unit]
+Description=Set the best gateway on startup
+
+[Service]
+ExecStart=/home/pi/gateway_set.sh
+Type=oneshot
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Run 
+```bash
+sudo systemctl enable gateway_check.service
+sudo systemctl start gateway_set.service
+```
+to enable the service and start the service.
+
+Confirm the service status and script execution by checking the output of 
+```bash
+systemctl status gateway_check.service
+```
+
+Run 
+```bash
+cat /tmp/script_log.txt
+```
+to track down script runtime errors.
+
+**Gateway_check.sh:** A script that runs at regular intervals to compare and select the best gateway.
+
+Use the same step to make the script executable and track down script runtime errors.
+
+Type 
+```bash
+crontab -e
+```
+Add
+```bash
+0 * * * * * /home/pi/Gateway_check.sh
+```
+at the end of the file to run the script every hour.
+
+Run 
+```bash
+grep CRON /var/log/syslog
+```
+to view the logs of cron jobs and confirm that your scripts are executing as expected.
