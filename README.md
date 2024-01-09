@@ -215,3 +215,10 @@ ping -I wlan0 -c 4 www.google.com
 # Checking the dnsmasq Configuration
 sudo nano /etc/dnsmasq.conf
 ```
+**Gateway_set.sh:** Automatically select the best gateway Pi after the Raspberry Pi is switched on.
+
+Run 
+```bash 
+chmod +x /home/pi/Gateway_set.sh 
+```
+to give the script execute permission.
