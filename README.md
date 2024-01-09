@@ -283,5 +283,13 @@ grep CRON /var/log/syslog
 to view the logs of cron jobs and confirm that your scripts are executing as expected.
 
 
-**SelectBestGateway.ps1:** Script to automatically set the best gateway for laptops. [Using "Terminal (Administrator)"]
+**SelectBestGateway.ps1:** Script to automatically set the best gateway for laptops. Write the code in Notepad and run it using the "Terminal (Administrator)".
 
+By default, Windows may not allow execution of unsigned scripts. You need to change the execution policy of PowerShell. Enter the following command in PowerShell:
+```bash
+Set-ExecutionPolicy Bypass -Scope Process
+```
+
+If you wish to run it regularly on a Windows PC:
+
+In "Task Scheduler", select "Create Task...". Fill in the General tab with the task name and description, and select Run with highest privileges in the Security options section. Switch to the Triggers tab and click "New..." to create a new trigger, e.g. you can choose to run it at a specific time of day or on login. Switch to the "Actions" tab and click on "New...". Select "Start a program" from the "Actions" drop-down menu. Type powershell.exe in "Program/script". In "Add arguments" type -ExecutionPolicy Bypass -File "C:\path\to\your\SelectBestGateway.ps1" (make sure to replace it with the actual path of the script). If desired, you can make additional configurations for the task in the Conditions and Settings tabs.
