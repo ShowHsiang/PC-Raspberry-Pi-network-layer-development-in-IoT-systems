@@ -293,3 +293,6 @@ Set-ExecutionPolicy Bypass -Scope Process
 If you wish to run it regularly on a Windows PC:
 
 In "Task Scheduler", select "Create Task...". Fill in the General tab with the task name and description, and select Run with highest privileges in the Security options section. Switch to the Triggers tab and click "New..." to create a new trigger, e.g. you can choose to run it at a specific time of day or on login. Switch to the "Actions" tab and click on "New...". Select "Start a program" from the "Actions" drop-down menu. Type powershell.exe in "Program/script". In "Add arguments" type -ExecutionPolicy Bypass -File "C:\path\to\your\SelectBestGateway.ps1" (make sure to replace it with the actual path of the script). If desired, you can make additional configurations for the task in the Conditions and Settings tabs.
+
+
+**send_telegram.sh**: Send a message via Telegram API to prove that the work status is normal.
