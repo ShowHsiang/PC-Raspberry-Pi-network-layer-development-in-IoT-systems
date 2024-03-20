@@ -315,15 +315,19 @@ If you want to build an app using Firebase as a backend and need to use the data
 1．	Preparing data on the Raspberry Pi
 For example, you can design a simple data structure to represent this information:
 
+````bash
 event_data = {
     "Device ID": "1",
     "Event ID": "1234567890123", 
     "Action": "xxxxxxx",
 }
+````
 
 2．	Installing and initialising the Firebase SDK
 
+````bash
 pip3 install firebase-admin
+````
 
 You then need to generate a new private key file (usually a JSON file) in the Firebase console and save that file to the Raspberry Pi.
 	In the Firebase console, find and open your project.
