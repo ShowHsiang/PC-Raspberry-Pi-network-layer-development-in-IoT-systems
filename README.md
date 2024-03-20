@@ -1,4 +1,4 @@
-# Raspberry-Pi-network-layer-development-in-IoT-systems
+# PC-Raspberry-Pi-network-layer-development-in-IoT-systems
 
 **Installing and updating software**
 
