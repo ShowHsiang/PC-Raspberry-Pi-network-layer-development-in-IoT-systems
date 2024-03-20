@@ -304,7 +304,33 @@ Step 2: Write a script to send Telegram messages
 Create Script File: Create a new script file on the Raspberry Pi, such as send_telegram.sh.
 
 Script content: add the following bash code to the script for sending messages via Telegram. Remember to replace <YourBOTToken> and <YourChatID> with the actual token and chat_id.
+
 **send_telegram.sh**: Send a message via Telegram API to prove that the work status is normal.
 
 Step 3: Timing Script Execution with Cron
 
+
+If you want to build an app using Firebase as a backend and need to use the data from the Raspberry Pi, you can follow the below method:
+
+1．	Preparing data on the Raspberry Pi
+For example, you can design a simple data structure to represent this information:
+
+event_data = {
+    "Device ID": "1",
+    "Event ID": "1234567890123", 
+    "Action": "xxxxxxx",
+}
+
+2．	Installing and initialising the Firebase SDK
+
+pip3 install firebase-admin
+
+You then need to generate a new private key file (usually a JSON file) in the Firebase console and save that file to the Raspberry Pi.
+	In the Firebase console, find and open your project.
+	In the sidebar, click on Project Settings (the gear next to the Settings icon).
+	Select the "Service Accounts" tab.
+	Scroll down to the "Firebase Admin SDK" section and click "Generate new private key". A dialogue box will pop up, confirm and the private key file (JSON file) will be downloaded to your computer.
+
+Then, write a script and use the following code to initialize Firebase:
+
+**transfer_data_script.py**: Used on the Raspberry Pi to transfer data to Firebase.
