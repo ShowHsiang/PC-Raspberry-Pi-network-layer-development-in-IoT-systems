@@ -1,0 +1,9 @@
+[Unit]
+Description=Set the best gateway on startup
+
+[Service]
+ExecStart=/home/pi/gateway_set.sh
+Type=oneshot
+
+[Install]
+WantedBy=multi-user.target
